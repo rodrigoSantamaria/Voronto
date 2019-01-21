@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/paxtools-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/reactomews.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient.jar"/>
+	<classpathentry kind="lib" path="lib/jdom-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/axis.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/client.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/junit.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/reactomews.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/saaj.jar"/>
+	<classpathentry kind="lib" path="lib/caBigReactomeClient/wsdl4j-1.5.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/batikfont.jar"/>
+	<classpathentry kind="lib" path="lib/JavaClientDAVID/DAVIDWebServiceClient.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/batik-awt-util.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/batik-codec.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/batik-dom.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/batik-ext.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/batik-svggen.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/batik-util.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/batik-xml.jar"/>
+	<classpathentry kind="lib" path="lib/P8gGraphicsSVG/P8gGraphicsSVG.jar"/>
+	<classpathentry kind="lib" path="lib/ParallelColt/parallelcolt-0.9.4.jar"/>
+	<classpathentry kind="lib" path="lib/processing-lib/ant-launcher.jar"/>
+	<classpathentry kind="lib" path="lib/processing-lib/ant.jar"/>
+	<classpathentry kind="lib" path="lib/processing-lib/core.jar"/>
+	<classpathentry kind="lib" path="lib/processing-lib/jna.jar"/>
+	<classpathentry kind="lib" path="lib/processing-lib/pde.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
