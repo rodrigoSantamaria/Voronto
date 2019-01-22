@@ -185,7 +185,7 @@ public class Introduction extends javax.swing.JPanel implements MouseListener{
 						{
 						switch(jComboBox1.getSelectedIndex())
 							{
-							case 5:
+							case 6:
 								JFileChooser selecFile = new JFileChooser();
 								
 								OBODataFilter odf=new OBODataFilter();
