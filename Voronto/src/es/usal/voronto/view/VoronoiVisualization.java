@@ -1015,14 +1015,18 @@ public void drawSkewedScale(float expressionLevel, int sample)
 				if(i>mid)
 					{
 					h=(int)Math.round(255-((i-mid)/Math.abs(scaleWidth-mid)*255));
-					stroke(255,h,h);
+					//stroke(255,h,h);
+					Color c=palette[Math.abs(h-255)+255];
+					stroke(c.getRed(), c.getGreen(), c.getBlue());
 					if(selCol!=null && selCol.getRed()==255 && Math.abs(selCol.getBlue()-h)<=jumpAbove)
 						drawReference=true;
 					}
 				else	
 					{
 					h=(int)Math.round(255-(Math.abs(i-mid)/Math.abs(mid))*255);
-					stroke(h,h,255);
+					//stroke(h,h,255);
+					Color c=palette[h];
+					stroke(c.getRed(), c.getGreen(), c.getBlue());
 					if(selCol!=null && selCol.getBlue()==255 && Math.abs(selCol.getRed()-h)<=jumpBelow)
 							drawReference=true;
 					}
@@ -1100,14 +1104,18 @@ public void drawScale()
 				if(i>sw*0.5)
 					{
 					h=(int)Math.round(255-((i-sw*0.5)/(sw*0.5)*255));
-					stroke(255,h,h);
+					//stroke(255,h,h);
+					Color c=palette[Math.abs(h-255)+255];
+					stroke(c.getRed(), c.getGreen(), c.getBlue());
 					if(hc!=null && hc.color.get(selectedCol).getRed()==255 && Math.abs(hc.color.get(selectedCol).getBlue()-h)<=jump)
 						drawReference=true;
 					}
 				else	
 					{
 					h=(int)Math.round(255-(Math.abs(i-sw*0.5)/Math.abs(sw*0.5))*255);
-					stroke(h,h,255);
+					//stroke(h,h,255);
+					Color c=palette[h];
+					stroke(c.getRed(), c.getGreen(), c.getBlue());
 					if(hc!=null && hc.color.get(selectedCol).getBlue()==255 && Math.abs(hc.color.get(selectedCol).getRed()-h)<=jump)
 						drawReference=true;
 					}
