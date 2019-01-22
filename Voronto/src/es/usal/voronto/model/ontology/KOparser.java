@@ -70,10 +70,10 @@ public class KOparser {
 	 * @param ed  ExpressionData which will determine selected gene annotations and gene id (it can be 'entrezgene', 'ensembl_gene_id' or 'external_gene_id')
 	 * 					By default is null, and gene annotations will be the ones coming directly from KEGG (usually entrezgene, but not always)
 	 * @param update If true, it uses programmatic remaps elements and updates the serialized file (takes time)
-	 * 
+	 * @param brite If true, only the brite hierarchy is parsed (A code 09180). If false, KEGG pathways are parsed (A codes A09100 to A09160)
 	 * @return
 	 */
-	public static TreeMap<OntologyTerm, TreeMap> parse(String path, String organism, ArrayList<String> pathIDs, ExpressionData ed, boolean update)
+	public static TreeMap<OntologyTerm, TreeMap> parse(String path, String organism, ArrayList<String> pathIDs, ExpressionData ed, boolean update, boolean brite)
 	{
 	TreeMap<OntologyTerm, TreeMap> map=new TreeMap<OntologyTerm, TreeMap>();
 	TreeMap<String, ArrayList<String>> koterms=new TreeMap<String, ArrayList<String>>();//mapping of KO terms to gene ids
@@ -144,11 +144,21 @@ public class KOparser {
 				case 'A':
 					id=s.substring(0, s.indexOf(" ")).trim();
 					name=s.substring(s.indexOf(" ")+1).trim();
-					/*if(id.equals("A09180") || id.equals("A09190")) //ignore "brite hierarchies" and "not included in pathway or brite" (drop out 40%, which is key for jnlp production tool)
-						{ignore=true; break;}
-					else 
-						ignore=false;*/
-					//System.out.println(name+"\t"+id);
+					if(!brite) //PATHWAYS
+						{
+						if(id.equals("A09180") || id.equals("A09190")) //ignore "brite hierarchies" and "not included in pathway or brite" (drop out 40%, which is key for jnlp production tool)
+							{ignore=true; break;}
+						else 
+							ignore=false;
+						}
+					else //BRITE
+						{
+						if(!id.equals("A09180"))
+							{ignore=true; break;}
+						else 
+							ignore=false;
+						}		
+					System.out.println(name+"\t"+id);
 					currentA=new OntologyTerm(name, id);
 					map.put(currentA, new TreeMap<OntologyTerm, TreeMap>());
 					break;
@@ -159,7 +169,7 @@ public class KOparser {
 					id=s.substring(0, s.indexOf(" ")).trim();
 					name=s.substring(s.indexOf(" ")+1).trim();
 					
-					//System.out.println("\t"+name+"\t"+id);
+					System.out.println("\t"+name+"\t"+id);
 					currentB=new OntologyTerm(name, id);
 					map.get(currentA).put(currentB, new TreeMap<OntologyTerm, TreeMap>());//Cannot be done with ontologies!!!
 					break;
@@ -172,12 +182,12 @@ public class KOparser {
 					
 					currentC=new OntologyTerm(name, id);
 					//if(name.contains("Fructose"))
-					//	System.out.println("\t\t"+name+"\t"+id);
+						System.out.println("\t\t"+name+"\t"+id);
 					//TODO ignore if not the one and so on
-					if(pathIDs==null || pathIDs.contains(id))	
+					if(brite || pathIDs==null || pathIDs.contains(id))	
 						{
 						((Map<OntologyTerm, TreeMap>)((Map<OntologyTerm, TreeMap>)map.get(currentA)).get(currentB)).put(currentC, new TreeMap<OntologyTerm, Map>());
-						//System.out.println("path "+name+" available for this organism");
+						System.out.println("path "+name+" available for this organism");
 						numPaths++;
 						addElements=true;
 						}
@@ -208,7 +218,7 @@ public class KOparser {
 					//if(id.equals("K10361"))
 					//	update=true;
 					
-					if(update)//last one saved: K17481
+					if(update)
 						{
 						ArrayList<String> results=getGenesByKO(id);
 						if(gids.size()!=results.size() || results.size()==0)
@@ -221,7 +231,10 @@ public class KOparser {
 							if(cont%500==0)
 								{
 								System.out.println("\nSaving..."+cont);
-								save(koterms, "komappingTOTAL-"+cont+".ser");
+								if(!brite)
+									save(koterms, "komappingTOTAL-"+cont+".ser");
+								else
+									save(koterms, "britemappingTOTAL-"+cont+".ser");
 								}
 							}
 						//else
@@ -233,15 +246,7 @@ public class KOparser {
 					else if(organism.equals("kegg_pathway"))
 						gids.add("kegg_pathway:"+id);
 					
-					/*if(currentC.name.contains("Fructose"))
-						{
-						//System.out.println(currentC.name+"\t"+currentC.id);
-						String gg="-";
-						for(String g:gids)
-							if(g.startsWith("salb"))
-								gg=g;
-						System.out.println(id+"\t"+gg);
-						}*/
+					
 					//TRANSLATION to gene ids on the expression data
 					if(geneMap!=null)
 						{
@@ -343,7 +348,10 @@ public class KOparser {
 		if(update)
 			{
 		//	save(koterms, "komappingTOTAL-new.ser");
-			saveByOrganism(koterms, "komap");
+			if(!brite)
+				saveByOrganism(koterms, "komap");
+			else
+				saveByOrganism(koterms, "brite");
 			}
 		
 		
@@ -695,7 +703,7 @@ public class KOparser {
 		while((cad=file.readLine())!=null)
 			{
 			String[] fields=cad.split("\t");
-			System.out.println(cad);
+			//System.out.println(cad);
 			String id=fields[0];
 			String org=fields[1];
 			org=org.replaceAll("\\(.*\\)", "").trim();

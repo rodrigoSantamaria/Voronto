@@ -168,7 +168,7 @@ public class Introduction extends javax.swing.JPanel implements MouseListener{
 				ComboBoxModel jComboBox1Model = 
 						new DefaultComboBoxModel(
 								//		new String[] { "KEGG", "GO slim BP","GO slim CC", "GO full BP", "REACTOME", "Custom..." });
-										new String[] { "KEGG", "GO BP","GO CC", "GO MF", "REACTOME", "Custom..." });
+										new String[] { "KEGG PATH", "KEGG BRITE", "GO BP","GO CC", "GO MF", "REACTOME", "Custom..." });
 								
 				jComboBox1 = new JComboBox();
 				this.add(jComboBox1);
@@ -219,7 +219,7 @@ public class Introduction extends javax.swing.JPanel implements MouseListener{
 										}
 									}
 							break;
-						case 1://select root
+						case 2://select root
 							parent.root="biological_process";
 							onto=parent.root;
 							tl=null;
@@ -227,7 +227,7 @@ public class Introduction extends javax.swing.JPanel implements MouseListener{
 							jLabel10.setText("Click here to load a custom .GAF file from GOA...");
 							jLabel10.setVisible(true);
 							break;
-						case 2://select root
+						case 3://select root
 							parent.root="cellular_component";
 							onto=parent.root;
 							tl=null;
@@ -235,7 +235,7 @@ public class Introduction extends javax.swing.JPanel implements MouseListener{
 							jLabel10.setText("Click here to load a custom .GAF file from GOA...");
 							jLabel10.setVisible(true);
 							break;
-						case 3://select root
+						case 4://select root
 							parent.root="molecular_function";
 							onto=parent.root;
 							tl=null;

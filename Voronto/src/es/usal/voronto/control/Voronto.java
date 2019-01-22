@@ -162,14 +162,13 @@ public class Voronto extends JFrame implements PropertyChangeListener{
 	            
 	            switch(ontology)
             	    {
-            	    case 0:	//KEGG
-            	    	
+            	    case 0:	//KEGG PATH
             	    	if(md!=null)
-            	    		m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", md.organismKegg, KOparser.getPathways(md.organismKegg), md, false);
-            	    		//m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", null, null, null, true);
+            	    		m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", md.organismKegg, KOparser.getPathways(md.organismKegg), md, false, false);//KEGG PATHWAY
+	            	    	//m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", null, null, null, true);
             	    		//m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", "kegg_pathway", null, null, false);
             	    	else            	    		
-            	    		m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", null, null, null, false);
+            	    		m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", null, null, null, false, false);
             	    		//m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", null, null, null, true);
             		    
             		    m=m.get(new OntologyTerm("KEGG Orthology", ""));
@@ -177,7 +176,18 @@ public class Voronto extends JFrame implements PropertyChangeListener{
             		    type=VoronoiVisualization.KEGG;
             		    root="KEGG Orthology";
             		    break;
-            	    case 1:		//GO BP
+            	    case 1: //KEGG BRITE
+            	    	if(md!=null)
+            	    		m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", md.organismKegg, KOparser.getPathways(md.organismKegg), md, false, true); //BRITE
+	        	    	else            	    		
+            	    		m=KOparser.parse("es/usal/voronto/data/kegg/ko00001.keg", null, null, null, false, true);
+            	    	
+            		    m=m.get(new OntologyTerm("KEGG Orthology", ""));
+            		    System.out.println("Time in getting the ontology: "+(System.currentTimeMillis()-time)/1000.0);
+            		    type=VoronoiVisualization.KEGG;
+            		    root="KEGG Orthology";
+            		    break;
+            	    case 2:		//GO BP
         	    	    m=GOparser.parse("es/usal/voronto/data/go/gene_ontology_ext.obo", "biological_process", false);
             	    	//m=GOparser.parse("es/usal/voronto/data/go/gene_ontology_ext.obo", "biological_process", true);//for updates
             	    	
@@ -191,7 +201,7 @@ public class Voronto extends JFrame implements PropertyChangeListener{
             			
             	    	type=VoronoiVisualization.BP;
             			break;
-            	    case 2:		//GO CC
+            	    case 3:		//GO CC
             	    	m=GOparser.parse("es/usal/voronto/data/go/gene_ontology_ext.obo", "cellular_component", false);
             	    	//m=GOparser.parse("es/usal/voronto/data/go/gene_ontology_ext.obo", "cellular_component", true);
             	    	m=getRoot(root, m);
@@ -205,7 +215,7 @@ public class Voronto extends JFrame implements PropertyChangeListener{
             			
             	    	type=VoronoiVisualization.CC;
             			break;	
-            	    case 3:		//GO MF
+            	    case 4:		//GO MF
             	    	m=GOparser.parse("es/usal/voronto/data/go/gene_ontology_ext.obo", "molecular_function", false);
             	    	//m=GOparser.parse("es/usal/voronto/data/go/gene_ontology_ext.obo", "molecular_function", true);
             	    	m=getRoot(root, m);
@@ -214,12 +224,12 @@ public class Voronto extends JFrame implements PropertyChangeListener{
             			
             	    	type=VoronoiVisualization.MF;
             			break;	
-            		case 4:		//REACTOME
+            		case 5:		//REACTOME
             			if(md!=null)  			m=ReactomeParser.readSer("es/usal/voronto/data/reactome/"+md.organism+".ser", md);
             			else       				m=ReactomeParser.readSer("es/usal/voronto/data/reactome/Homo sapiens.ser", null);
             		    type=VoronoiVisualization.REACTOME;
             		    break;
-            		case 5:		//CUSTOM
+            		case 6:		//CUSTOM
             			if(intro.ontologyType.contains("xml"))	//XML custom for ontology and mapping
             				{
             				XMLparser xp=new XMLparser();
@@ -442,9 +452,11 @@ public void launch(File expressionFile, String ontologyFile, int ontology)
 	task.execute();
 	
 	setResizable(false);
-	String path=expressionFile.getAbsolutePath();
-	if(expressionFile!=null)	//setTitle(path.substring(path.lastIndexOf("/")+1));
-					dataName=path.substring(path.lastIndexOf("/")+1);
+	if(expressionFile!=null)	
+		{
+		String path=expressionFile.getAbsolutePath();
+		dataName=path.substring(path.lastIndexOf("/")+1);
+		}
 	}catch(Exception e){e.printStackTrace();}
 	}
   

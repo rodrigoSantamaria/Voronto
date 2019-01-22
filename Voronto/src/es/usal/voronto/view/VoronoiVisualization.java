@@ -1923,7 +1923,7 @@ public void keyReleased()
 		case 'b': //go back to input interface
 			if(voronto!=null)
 				{
-				gh.getSurface().setVisible(false);
+				//gh.getSurface().setVisible(false);
 				voronto.goBack();				
 				}
 			else
