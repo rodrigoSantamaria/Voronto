@@ -697,9 +697,9 @@ public Color getColor(float ex, int col)
 						return new Color(h,h,255);
 						}*/
 				case VoronoiVisualization.COLOR_EXPRESSION:
-						return palette[(int)Math.round((ex-minExp)/(maxExp-minExp)*510)];
+						return palette[(int)Math.round((ex-minExp)/(maxExp-minExp)*509)];
 				case VoronoiVisualization.COLOR_DEVIATION:
-					h=(int)Math.round(255-(Math.abs(ex-avgExp)/Math.max(Math.abs(avgExp-minExp), Math.abs(avgExp-maxExp)))*255);
+					h=(int)Math.round(255-(Math.abs(ex-avgExp)/Math.max(Math.abs(avgExp-minExp), Math.abs(avgExp-maxExp)))*254);
 					return new Color(h,255,h);
 				case VoronoiVisualization.COLOR_INTERNAL_DEVIATION://TODO: testing
 					return null;
@@ -2334,7 +2334,8 @@ public void recursiveExpressionNormalization(Cell cell, int column)
 							{
 							h=(int)Math.round(255-((cell.expressionLevel.get(column)-avgExp)/(maxExp-avgExp)*255));
 							//cell.color.set(column,new Color(255, h, h));
-							cell.color.set(column, palette[Math.abs(h-255)+255]);
+							System.out.println(h+" "+palette.length);
+							cell.color.set(column, palette[Math.abs(h-255)+254]);
 							}
 						else
 							{

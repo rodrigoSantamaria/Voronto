@@ -1228,6 +1228,8 @@ public void loadMicroarray(String path, boolean invert, int rowHeader, int colHe
 			if(organism.startsWith("Macaca fa"))
 				cad="mcf";	//special case in kegg, if not it will take mmu!*/
 			}
+		else //We refer to simpler case if not a proper KEGG pathway name found
+			cad=organism.charAt(0)+organism.substring(organism.indexOf(" ")+1,organism.indexOf(" ")+3);
 		return cad.toLowerCase();
 		}
 	
