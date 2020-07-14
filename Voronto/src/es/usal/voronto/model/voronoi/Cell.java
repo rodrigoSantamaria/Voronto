@@ -337,9 +337,17 @@ public class Cell implements Cloneable {
 				{
 				Float[] temp=vals.get(k).toArray(new Float[0]);
 				Arrays.sort(temp);
+				// mean computation
+				float mean=0;
+				for(float i:temp)
+					mean+=i;
+				mean/=temp.length;
+				e[k]=mean;
+				/* median computation
 				int middle = temp.length/2;
 				if (temp.length%2 == 1) 	e[k]=temp[middle];
 				else					e[k]= (float) ((temp[middle-1] + temp[middle]) / 2.0);
+				*/
 				}
 			}
 		else
@@ -444,10 +452,19 @@ public class Cell implements Cloneable {
 			for(int k=0;k<md.getNumConditions();k++)	
 				{
 				Float[] temp=vals.get(k).toArray(new Float[0]);
-				Arrays.sort(temp);
+				
+				
+				// mean computation
+				float mean=0;
+				for(float i:temp)
+					mean+=i;
+				mean/=temp.length;
+				e[k]=mean;
+				/* median computation
 				int middle = temp.length/2;
 				if (temp.length%2 == 1) 	e[k]=temp[middle];
 				else					e[k]= (float) ((temp[middle-1] + temp[middle]) / 2.0);
+				*/
 				}
 			}
 		else
