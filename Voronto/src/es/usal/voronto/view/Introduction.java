@@ -363,6 +363,8 @@ public void mouseReleased(MouseEvent arg0) {
 				java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://vis.usal.es/~visusal/voronto/voronto/Help.html"));
 			}catch(IOException ioe){ioe.printStackTrace();}
 			}
+		
+		//Load custom annotation file:
 		if((JLabel)(arg0.getSource())==jLabel10)
 		{
 		try{

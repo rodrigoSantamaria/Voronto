@@ -220,9 +220,12 @@ public class Voronto extends JFrame implements PropertyChangeListener{
             	    	//m=GOparser.parse("es/usal/voronto/data/go/gene_ontology_ext.obo", "molecular_function", true);
             	    	m=getRoot(root, m);
             	    	customName="GO MF - "+root;
-            	    	if(md!=null)	GOparser.annotate(m, md.organism, md.chip, VoronoiVisualization.MF, md);
-            			
-            	    	type=VoronoiVisualization.MF;
+            	    	if(md!=null)	
+            	    		{
+            	    		if(intro.annotationFile!=null)		GOparser.annotateFromGAF(m, intro.annotationFile.getAbsolutePath(),  md);
+            	    		else								GOparser.annotate(m, md.organism, md.chip, VoronoiVisualization.MF, md);
+            	    		}
+            			type=VoronoiVisualization.MF;
             			break;	
             		case 5:		//REACTOME
             			if(md!=null)  			m=ReactomeParser.readSer("es/usal/voronto/data/reactome/"+md.organism+".ser", md);
